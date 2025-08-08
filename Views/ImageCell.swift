@@ -7,8 +7,6 @@
 
 import UIKit
 
-var cached: [UICollectionViewCell: Set<String>] = [:]
-
 class ImageCell: UICollectionViewCell {
     @IBOutlet weak var itemImageView: UIImageView!
     
@@ -23,8 +21,6 @@ class ImageCell: UICollectionViewCell {
     }
 
     func configData(photo: UnsplashPhoto) {
-        cached[self, default: .init()].insert(photo.urls.regular)
-        print(cached.filter({ $0.value.count > 1 }))
         ImageLoader.loadImage(from: photo.urls.regular, isUseCache: true) { [weak self] image in
             let image = image?.withTonalFilter
             DispatchQueue.main.async {
